@@ -762,6 +762,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "stats-reporter"
+version = "0.1.0"
+dependencies = [
+ "reqwest",
+ "tokio",
+]
+
+[[package]]
 name = "syn"
 version = "2.0.52"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -809,14 +817,6 @@ dependencies = [
  "fastrand",
  "rustix",
  "windows-sys 0.52.0",
-]
-
-[[package]]
-name = "tempreture-reporter"
-version = "0.1.0"
-dependencies = [
- "reqwest",
- "tokio",
 ]
 
 [[package]]

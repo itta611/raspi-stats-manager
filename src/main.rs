@@ -1,11 +1,8 @@
 use reqwest;
 use tokio::time::{self, Duration};
 
-struct Stat {
-    tempreture: i32,
-    memory: i32,
-    cpu: f32,
-}
+mod types;
+use types::Stat;
 
 #[tokio::main]
 async fn main() {

@@ -44,6 +44,8 @@ impl Stats {
 
         self.tempreture = Some(get_tempreture().unwrap());
         self.used_mem = Some(get_used_memory(&self.system));
+        self.total_mem = Some(get_total_memory(&self.system));
+        self.cpu_usage = Some(get_cpu_usage(&self.system));
 
         self
     }

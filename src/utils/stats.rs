@@ -1,5 +1,5 @@
 // use async_process::Command;
-use std::{collections::HashMap, fs, io};
+use std::{fs, io};
 // use sysinfo::{CpuExt, CpuRefreshKind, RefreshKind, System, SystemExt};
 
 pub struct Stats {
@@ -34,12 +34,18 @@ impl Stats {
             &self.cpu_usage.unwrap(),
         )
     }
+
+    pub fn update(&mut self) -> &Stats {
+        self.tempreture = Some(get_tempreture().unwrap());
+        self
+    }
 }
 
-// async fn get_cpu_tempreture() -> Result<String, io::Error> {
-//     let output = fs::read_to_string("/sys/class/thermal/thermal_zone0/temp")?;
-//     Ok(stdout.trim().to_string())
-// }
+fn get_tempreture() -> Result<i32, io::Error> {
+    let output = fs::read_to_string("/sys/class/thermal/thermal_zone0/temp")?;
+    let tempreture = output.parse::<f32>().unwrap() / 1000f32;
+    Ok(tempreture.round() as i32)
+}
 
 // pub async fn get() -> Stats {
 //     let mut system =

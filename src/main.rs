@@ -7,12 +7,13 @@ use utils::stats::Stats;
 async fn main() {
     let mut interval = time::interval(Duration::from_secs(10));
     let client = reqwest::Client::new();
-    let stat = Stats::new();
+    let mut stats = Stats::new();
 
     loop {
+        stats.update();
         client
             .post("https://192.168.1.101:2784")
-            .body(stat.to_json())
+            .body(stats.to_json())
             .send()
             .await
             .unwrap();

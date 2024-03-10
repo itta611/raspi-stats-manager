@@ -1,4 +1,3 @@
-// use async_process::Command;
 use std::{fs, io};
 use sysinfo::{CpuRefreshKind, RefreshKind, System};
 
@@ -24,7 +23,6 @@ impl Stats {
     }
 
     pub fn to_json(&self) -> String {
-        // &self.tempreture
         format!(
             "{{
                 \"tempreture\": {},
@@ -59,21 +57,11 @@ fn get_tempreture() -> Result<i32, io::Error> {
 }
 
 fn get_used_memory(system: &System) -> i32 {
-    let used_mem =
-        (system.used_memory() as f32 / (1024 * 1024 * 1024) as f32 * 10.0).round() / 10.0;
-
-    println!("{}", system.used_memory());
-
-    used_mem as i32
+    (system.used_memory() as f32 / 1024_f32 / 1024_f32 / 1024_f32).round() as i32
 }
 
 fn get_total_memory(system: &System) -> i32 {
-    let total_mem =
-        (system.total_memory() as f32 / (1024 * 1024 * 1024) as f32 * 10.0).round() / 10.0;
-
-    // println!("{}", system.used_memory());
-
-    total_mem as i32
+    (system.total_memory() as f32 / 1024_f32 / 1024_f32 / 1024_f32).round() as i32
 }
 
 fn get_cpu_usage(system: &System) -> f32 {

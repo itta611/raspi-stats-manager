@@ -40,6 +40,8 @@ impl Stats {
     }
 
     pub fn update(&mut self) -> &Stats {
+        self.system.refresh_memory();
+
         self.tempreture = Some(get_tempreture().unwrap());
         self.used_mem = Some(get_used_memory(&self.system));
 
@@ -62,15 +64,16 @@ fn get_used_memory(system: &System) -> i32 {
     used_mem as i32
 }
 
-// pub async fn get() -> Stats {
-//     let mut system =
-//         System::new_with_specifics(RefreshKind::new().with_cpu(CpuRefreshKind::everything()));
-//     system.refresh_memory();
+fn get_total_memory(system: &System) -> i32 {
+    let total_mem =
+        (system.total_memory() as f32 / (1024 * 1024 * 1024) as f32 * 10.0).round() / 10.0;
 
-//     let used_mem =
-//         (system.used_memory() as f32 / (1024 * 1024 * 1024) as f32 * 10.0).round() / 10.0;
-//     let total_mem =
-//         (system.total_memory() as f32 / (1024 * 1024 * 1024) as f32 * 10.0).round() / 10.0;
+    // println!("{}", system.used_memory());
+
+    total_mem as i32
+}
+
+// pub async fn get() -> Stats {
 //     let cpu_usage = system.global_cpu_info().cpu_usage();
 //     let cpu_tempreture = get_cpu_tempreture().await.unwrap().parse::<f32>().unwrap() / 1000.0;
 

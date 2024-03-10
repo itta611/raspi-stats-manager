@@ -1,6 +1,6 @@
 // use async_process::Command;
 use std::{fs, io};
-use sysinfo::{CpuExt, CpuRefreshKind, RefreshKind, System, SystemExt};
+use sysinfo::{CpuRefreshKind, RefreshKind, System};
 
 pub struct Stats {
     pub tempreture: Option<i32>,

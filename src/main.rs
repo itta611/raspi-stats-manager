@@ -1,3 +1,5 @@
+use std::env;
+
 use tokio::time::{self, Duration};
 
 mod utils;
@@ -6,9 +8,21 @@ use utils::stats::Stats;
 #[tokio::main]
 async fn main() {
     let mut interval = time::interval(Duration::from_secs(10));
-    let client = reqwest::Client::new();
     let mut stats = Stats::new();
-    let master_ip = "192.168.1.101";
+    let client = reqwest::Client::new();
+    let args: Vec<String> = env::args().collect();
+
+    if args.len() == 1 {
+        panic!(
+            "
+Master node IP address not provided.
+{} {{IP_ADDRESS}}
+",
+            args[0]
+        )
+    }
+
+    let master_ip: &str = &args[1];
     let master_port = "2784";
 
     loop {

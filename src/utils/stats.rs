@@ -53,7 +53,8 @@ impl Stats {
 
 fn get_tempreture() -> Result<i32, io::Error> {
     let output = fs::read_to_string("/sys/class/thermal/thermal_zone0/temp")?;
-    let tempreture = output.parse::<f32>().unwrap() / 1000f32;
+    let tempreture = output.trim().parse::<f32>().unwrap() / 1000f32;
+
     Ok(tempreture.round() as i32)
 }
 

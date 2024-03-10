@@ -73,14 +73,6 @@ fn get_total_memory(system: &System) -> i32 {
     total_mem as i32
 }
 
-// pub async fn get() -> Stats {
-//     let cpu_usage = system.global_cpu_info().cpu_usage();
-//     let cpu_tempreture = get_cpu_tempreture().await.unwrap().parse::<f32>().unwrap() / 1000.0;
-
-//     Stats {
-//         tempreture,
-//         used_mem,
-//         total_mem,
-//         cpu_usage,
-//     }
-// }
+fn get_cpu_usage(system: &System) -> f32 {
+    system.global_cpu_info().cpu_usage()
+}

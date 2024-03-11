@@ -5,7 +5,7 @@ pub struct Stats {
     pub tempreture: Option<i32>,
     pub used_mem: Option<i32>,
     pub total_mem: Option<i32>,
-    pub cpu_usage: Option<f32>,
+    pub cpu_usage: Option<i32>,
     system: System,
 }
 
@@ -64,6 +64,6 @@ fn get_total_memory(system: &System) -> i32 {
     (system.total_memory() as f32 / 1024_f32 / 1024_f32 / 1024_f32).round() as i32
 }
 
-fn get_cpu_usage(system: &System) -> f32 {
-    system.global_cpu_info().cpu_usage()
+fn get_cpu_usage(system: &System) -> i32 {
+    system.global_cpu_info().cpu_usage().round() as i32
 }

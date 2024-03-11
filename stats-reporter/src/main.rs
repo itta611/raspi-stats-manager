@@ -26,7 +26,10 @@ Master node IP address not provided.
     let master_port = "2784";
 
     loop {
+        interval.tick().await;
+
         stats.update();
+        println!("{}", stats.to_json());
 
         let url = format!("http://{}:{}", master_ip, master_port);
         let result = client.post(url).body(stats.to_json()).send().await;
@@ -41,7 +44,5 @@ Check host server is running correctly.
                 master_ip
             );
         }
-
-        interval.tick().await;
     }
 }

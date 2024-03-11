@@ -32,7 +32,7 @@ Master node IP address not provided.
         let result = client.post(url).body(stats.to_json()).send().await;
 
         if result.is_err() {
-            panic!(
+            println!(
                 "
 Failed to connect to master node ({}):
 Check host server is running correctly.

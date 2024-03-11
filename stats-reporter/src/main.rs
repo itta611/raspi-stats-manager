@@ -25,6 +25,8 @@ Master node IP address not provided.
     let master_ip: &str = &args[1];
     let master_port = "2784";
 
+    time::sleep(Duration::from_secs(10)).await;
+
     loop {
         interval.tick().await;
 

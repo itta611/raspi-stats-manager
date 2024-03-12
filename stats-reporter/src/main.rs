@@ -50,10 +50,10 @@ Master node IP address not provided.
         if result.is_err() || result.unwrap().status() != StatusCode::ACCEPTED {
             println!(
                 "
-        Failed to connect to master node ({}):
-        Check host server is running correctly.
+Failed to connect to master node ({}):
+Check host server is running correctly.
 
-        ",
+",
                 master_ip
             );
         }

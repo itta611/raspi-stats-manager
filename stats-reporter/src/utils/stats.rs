@@ -24,12 +24,13 @@ impl Stats {
 
     pub fn to_json(&self) -> String {
         format!(
-            "{{
-                \"tempreture\": {},
-                \"usedMemory\": {},
-                \"totalMemory\": {},
-                \"cpuUsage\": {},
-            }}",
+            "
+{{
+  \"tempreture\": {},
+  \"usedMemory\": {},
+  \"totalMemory\": {},
+  \"cpuUsage\": {},
+}}",
             &self.tempreture.unwrap(),
             &self.used_mem.unwrap(),
             &self.total_mem.unwrap(),

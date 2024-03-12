@@ -31,10 +31,10 @@ Master node IP address not provided.
         interval.tick().await;
 
         stats.update();
-        println!("{}", stats.to_json());
 
-        let url = format!("http://{}:{}", master_ip, master_port);
+        let url = format!("http://{}:{}/collect", master_ip, master_port);
         let result = client.post(url).body(stats.to_json()).send().await;
+        println!("{:?}", result);
 
         if result.is_err() {
             println!(

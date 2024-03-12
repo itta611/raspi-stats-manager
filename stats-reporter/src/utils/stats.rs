@@ -1,52 +1,43 @@
+use serde::{Deserialize, Serialize};
 use std::{fs, io};
 use sysinfo::{CpuRefreshKind, RefreshKind, System};
 
+#[derive(Serialize, Deserialize)]
 pub struct Stats {
     pub tempreture: Option<i32>,
     pub used_mem: Option<i32>,
     pub total_mem: Option<i32>,
     pub cpu_usage: Option<i32>,
+}
+
+pub struct StatsController {
+    pub stats: Stats,
     system: System,
 }
 
-impl Stats {
-    pub fn new() -> Stats {
-        Stats {
+impl StatsController {
+    pub fn new() -> StatsController {
+        let stats = Stats {
             tempreture: None,
             used_mem: None,
             total_mem: None,
             cpu_usage: None,
+        };
+        StatsController {
+            stats,
             system: System::new_with_specifics(
                 RefreshKind::new().with_cpu(CpuRefreshKind::everything()),
             ),
         }
     }
 
-    pub fn to_json(&self) -> String {
-        format!(
-            "
-{{
-  \"tempreture\": {},
-  \"usedMemory\": {},
-  \"totalMemory\": {},
-  \"cpuUsage\": {},
-}}",
-            &self.tempreture.unwrap(),
-            &self.used_mem.unwrap(),
-            &self.total_mem.unwrap(),
-            &self.cpu_usage.unwrap(),
-        )
-    }
-
-    pub fn update(&mut self) -> &Stats {
+    pub fn update(&mut self) {
         self.system.refresh_memory();
 
-        self.tempreture = Some(get_tempreture().unwrap());
-        self.used_mem = Some(get_used_memory(&self.system));
-        self.total_mem = Some(get_total_memory(&self.system));
-        self.cpu_usage = Some(get_cpu_usage(&self.system));
-
-        self
+        self.stats.tempreture = Some(get_tempreture().unwrap());
+        self.stats.used_mem = Some(get_used_memory(&self.system));
+        self.stats.total_mem = Some(get_total_memory(&self.system));
+        self.stats.cpu_usage = Some(get_cpu_usage(&self.system));
     }
 }
 

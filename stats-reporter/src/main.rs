@@ -1,6 +1,5 @@
 use std::env;
 
-use reqwest::Request;
 use tokio::time::{self, Duration};
 
 mod utils;

@@ -17,14 +17,12 @@ async fn report(
         .lock()
         .unwrap()
         .insert(payload.host_name, payload.stats);
-    println!("{:?}", stats_list);
     Json(ReportResult { result: "OK" })
 }
 
 async fn get_list(
     Extension(stats_list): Extension<Arc<Mutex<HashMap<String, Stats>>>>,
 ) -> Json<UserLists> {
-    println!("{:?}", stats_list);
     Json(UserLists {
         data: stats_list.lock().unwrap().clone(),
     })

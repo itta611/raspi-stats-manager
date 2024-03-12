@@ -1,3 +1,4 @@
+use reqwest::StatusCode;
 use serde::Serialize;
 use std::env;
 use tokio::time::{self, Duration};
@@ -46,7 +47,7 @@ Master node IP address not provided.
         };
         let result = client.post(url).json(&payload).send().await;
 
-        if result.is_err() {
+        if result.is_err() || result.unwrap().status() != StatusCode::ACCEPTED {
             println!(
                 "
         Failed to connect to master node ({}):

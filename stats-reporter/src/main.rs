@@ -38,7 +38,7 @@ Master node IP address not provided.
 
         stats_controller.update();
 
-        let url = format!("http://{}:{}/collect", master_ip, master_port);
+        let url = format!("http://{}:{}/manager", master_ip, master_port);
         let hostname = hostname::get().unwrap();
         let payload = Report {
             host_name: hostname.into_string().unwrap(),

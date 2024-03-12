@@ -2,8 +2,9 @@ use serde::{Deserialize, Serialize};
 use std::{fs, io};
 use sysinfo::{CpuRefreshKind, RefreshKind, System};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize)]
 pub struct Stats {
+    pub hostname: String,
     pub temperature: Option<i32>,
     pub used_mem: Option<i32>,
     pub total_mem: Option<i32>,
@@ -18,6 +19,7 @@ pub struct StatsController {
 impl StatsController {
     pub fn new() -> StatsController {
         let stats = Stats {
+            hostname: String::from("asdf"),
             temperature: None,
             used_mem: None,
             total_mem: None,

@@ -1,9 +1,15 @@
+use serde::{Deserialize, Serialize};
 use std::env;
-
 use tokio::time::{self, Duration};
 
 mod utils;
-use utils::stats::StatsController;
+use utils::stats::{Stats, StatsController};
+
+#[derive(Serialize)]
+struct Report<'a> {
+    host_name: String,
+    stats: &'a Stats,
+}
 
 #[tokio::main]
 async fn main() {
@@ -33,10 +39,12 @@ Master node IP address not provided.
         stats_controller.update();
 
         let url = format!("http://{}:{}/collect", master_ip, master_port);
-        // let s = serde_json::json(&stats_controller.stats).unwrap();
-        let result = client.post(url).json(&stats_controller.stats).send().await;
-        // println!("{}", s);
-        println!("{:?}", result);
+        let hostname = hostname::get().unwrap();
+        let payload = Report {
+            host_name: hostname.into_string().unwrap(),
+            stats: &stats_controller.stats,
+        };
+        let result = client.post(url).json(&payload).send().await;
 
         if result.is_err() {
             println!(

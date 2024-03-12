@@ -1,21 +1,28 @@
 // use std::sync::{Arc, Mutex};
 
-use std::sync::{Arc, Mutex};
+use std::{
+    collections::HashMap,
+    sync::{Arc, Mutex},
+};
 
-use axum::{extract, http::StatusCode, routing::post, Json, Router};
+use axum::{routing::post, Json, Router};
 use serde::{Deserialize, Serialize};
 
 async fn collect(
-    Json(payload): Json<Stats>,
-    stats_list: Arc<Mutex<Vec<Stats>>>,
+    Json(payload): Json<Report>,
+    stats_list: Arc<Mutex<HashMap<String, Stats>>>,
 ) -> Json<CollectResult> {
-    stats_list.lock().unwrap().push(payload);
+    stats_list
+        .lock()
+        .unwrap()
+        .insert(payload.host_name, payload.stats);
+    println!("{:?}", stats_list);
     Json(CollectResult { result: "OK" })
 }
 
 #[tokio::main]
 async fn main() {
-    let stats_list: Vec<Stats> = vec![];
+    let stats_list: HashMap<String, Stats> = HashMap::new();
     let stats_list = Arc::new(Mutex::new(stats_list));
 
     tracing_subscriber::fmt::init();
@@ -39,10 +46,16 @@ struct CollectResult {
     result: &'static str,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug)]
 struct Stats {
     temperature: i32,
     used_mem: i32,
     total_mem: i32,
     cpu_usage: i32,
+}
+
+#[derive(Deserialize)]
+struct Report {
+    host_name: String,
+    stats: Stats,
 }

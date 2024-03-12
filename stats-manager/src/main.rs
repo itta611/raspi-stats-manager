@@ -6,16 +6,16 @@ use std::{
 use axum::{routing::post, Json, Router};
 use serde::{Deserialize, Serialize};
 
-async fn collect(
+async fn report(
     Json(payload): Json<Report>,
     stats_list: Arc<Mutex<HashMap<String, Stats>>>,
-) -> Json<CollectResult> {
+) -> Json<ReportResult> {
     stats_list
         .lock()
         .unwrap()
         .insert(payload.host_name, payload.stats);
     println!("{:?}", stats_list);
-    Json(CollectResult { result: "OK" })
+    Json(ReportResult { result: "OK" })
 }
 
 #[tokio::main]
@@ -26,10 +26,10 @@ async fn main() {
     tracing_subscriber::fmt::init();
 
     let app = Router::new().route(
-        "/collect",
+        "/report",
         post(move |payload| {
             let stats_list = stats_list.clone();
-            collect(payload, stats_list)
+            report(payload, stats_list)
         }),
     );
 
@@ -40,7 +40,7 @@ async fn main() {
 }
 
 #[derive(Serialize)]
-struct CollectResult {
+struct ReportResult {
     result: &'static str,
 }
 

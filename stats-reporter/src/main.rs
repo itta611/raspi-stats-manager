@@ -1,4 +1,4 @@
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 use std::env;
 use tokio::time::{self, Duration};
 
@@ -31,7 +31,7 @@ Master node IP address not provided.
     let master_ip: &str = &args[1];
     let master_port = "2784";
 
-    // time::sleep(Duration::from_secs(10)).await;
+    time::sleep(Duration::from_secs(10)).await;
 
     loop {
         interval.tick().await;

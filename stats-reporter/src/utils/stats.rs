@@ -4,7 +4,7 @@ use sysinfo::{CpuRefreshKind, RefreshKind, System};
 
 #[derive(Serialize, Deserialize)]
 pub struct Stats {
-    pub tempreture: Option<i32>,
+    pub temperature: Option<i32>,
     pub used_mem: Option<i32>,
     pub total_mem: Option<i32>,
     pub cpu_usage: Option<i32>,
@@ -18,7 +18,7 @@ pub struct StatsController {
 impl StatsController {
     pub fn new() -> StatsController {
         let stats = Stats {
-            tempreture: None,
+            temperature: None,
             used_mem: None,
             total_mem: None,
             cpu_usage: None,
@@ -34,18 +34,18 @@ impl StatsController {
     pub fn update(&mut self) {
         self.system.refresh_memory();
 
-        self.stats.tempreture = Some(get_tempreture().unwrap());
+        self.stats.temperature = Some(get_temperature().unwrap());
         self.stats.used_mem = Some(get_used_memory(&self.system));
         self.stats.total_mem = Some(get_total_memory(&self.system));
         self.stats.cpu_usage = Some(get_cpu_usage(&self.system));
     }
 }
 
-fn get_tempreture() -> Result<i32, io::Error> {
+fn get_temperature() -> Result<i32, io::Error> {
     let output = fs::read_to_string("/sys/class/thermal/thermal_zone0/temp")?;
-    let tempreture = output.trim().parse::<f32>().unwrap() / 1000f32;
+    let temperature = output.trim().parse::<f32>().unwrap() / 1000f32;
 
-    Ok(tempreture.round() as i32)
+    Ok(temperature.round() as i32)
 }
 
 fn get_used_memory(system: &System) -> i32 {

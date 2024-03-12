@@ -4,7 +4,7 @@ use axum::{extract, http::StatusCode, routing::post, Json, Router};
 use serde::{Deserialize, Serialize};
 
 async fn collect(payload: extract::Json<Stats>) -> Json<CollectResult> {
-    println!("{:?}", payload.tempreture);
+    println!("{:?}", payload.temperature);
     Json(CollectResult { result: "OK" })
 }
 
@@ -27,7 +27,7 @@ struct CollectResult {
 
 #[derive(Deserialize)]
 struct Stats {
-    tempreture: i32,
+    temperature: i32,
     used_mem: i32,
     total_mem: i32,
     cpu_usage: i32,

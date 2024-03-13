@@ -28,15 +28,17 @@ jobs:
       - name: Build and push Docker image (stats-reporter)
         uses: docker/build-push-action@v3
         with:
-          context: stats-reporter
+          context: .
           push: true
+          target: stats-reporter
           tags: itta/stats-reporter:${{ github.sha }}
           platforms: ${{ matrix.platform }}
 
       - name: Build and push Docker image (stats-manager)
         uses: docker/build-push-action@v3
         with:
-          context: stats-manager
+          context: .
           push: true
+          target: stats-manager
           tags: itta/stats-manager:${{ github.sha }}
           platforms: ${{ matrix.platform }}

@@ -31,7 +31,7 @@ jobs:
           context: .
           push: true
           target: stats-reporter
-          tags: itta/stats-reporter:${{ github.sha }}
+          tags: itta/stats-reporter:latest
           platforms: ${{ matrix.platform }}
 
       - name: Build and push Docker image (stats-manager)
@@ -40,5 +40,5 @@ jobs:
           context: .
           push: true
           target: stats-manager
-          tags: itta/stats-manager:${{ github.sha }}
+          tags: itta/stats-manager:latest
           platforms: ${{ matrix.platform }}

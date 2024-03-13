@@ -5,7 +5,7 @@ RUN cargo build --release
 
 FROM alpine:latest as stats-reporter
 WORKDIR /app
-COPY --from=builder /app/target/release/stats-reproter .
+COPY --from=builder /app/target/release/stats-reporter .
 EXPOSE 2784
 CMD [ "./stats-reporter" ]
 

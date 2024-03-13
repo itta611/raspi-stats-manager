@@ -1,8 +1,7 @@
 FROM rust:latest as builder
 WORKDIR /app
 COPY . .
-RUN cargo build --release --package stats-reporter
-RUN cargo build --release --package stats-manager
+RUN cargo build --release
 
 FROM alpine:latest as stats-reporter
 WORKDIR /app

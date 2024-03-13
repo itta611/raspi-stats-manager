@@ -7,10 +7,10 @@ FROM alpine:latest as stats-reporter
 WORKDIR /app
 COPY --from=builder /app/target/release/stats-reporter .
 EXPOSE 2784
-CMD [ "/app/stats-reporter" ]
+CMD [ "file", "./stats-reporter" ]
 
 FROM alpine:latest as stats-manager
 WORKDIR /app
 COPY --from=builder /app/target/release/stats-manager .
 EXPOSE 2784
-CMD [ "/app/stats-manager" ]
+CMD [ "file", "./stats-manager" ]

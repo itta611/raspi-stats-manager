@@ -4,13 +4,6 @@ FROM rust:1.58 as builder
 # 作業ディレクトリを設定
 WORKDIR /usr/src/myapp
 
-# 依存関係のファイルをコピーし、依存関係をビルド
-COPY . ./
-RUN mkdir src/ && \
-    echo "fn main() {}" > src/main.rs && \
-    cargo build --release && \
-    rm -f target/release/deps/stats_manager*
-
 # アプリケーションのソースコードをコピー
 COPY . .
 

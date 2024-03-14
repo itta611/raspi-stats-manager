@@ -3,11 +3,8 @@ FROM rust:latest as builder
 
 RUN rustup target add armv7-unknown-linux-musleabihf
 RUN apt-get update && apt-get install -y musl-tools gcc-arm-linux-gnueabihf
-
-# 作業ディレクトリを設定
 WORKDIR /usr/src/myapp
 
-# アプリケーションのソースコードをコピー
 COPY . .
 
 RUN cargo build --release --target=armv7-unknown-linux-musleabihf

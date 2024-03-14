@@ -2,7 +2,8 @@
 FROM rust:latest as builder
 
 RUN rustup target add armv7-unknown-linux-musleabihf
-RUN apt-get update && apt-get install -y musl-tools gcc-arm-linux-gnueabihf
+RUN aapt-get -y install binutils-arm-linux-gnueabihf gcc-arm-linux-gnueabihf musl-tools
+RUN ln -s /usr/bin/arm-linux-gnueabihf-gcc /usr/bin/arm-linux-musleabihf-gcc
 WORKDIR /usr/src/myapp
 
 COPY . .

@@ -1,10 +1,12 @@
 # Rustの公式イメージをベースにする。アーキテクチャを指定していないが、ビルドシステムが適切なイメージを選択する。
 FROM rust:latest as builder
 
+RUN rustup target add armv7-unknown-linux-gnueabihf
 RUN apt-get update && apt-get install -y \
 	build-essential \
   gcc-arm-linux-gnueabihf \
 	curl
+
 
 WORKDIR /usr/src/myapp
 

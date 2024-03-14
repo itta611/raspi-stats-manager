@@ -25,10 +25,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image (stats-reporter)
+      - name: Build and push Docker image (stats-manager)
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
-          tags: itta/stats-reporter:latest
+          tags: itta/stats-manager:latest
           platforms: ${{ matrix.platform }}

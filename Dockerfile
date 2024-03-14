@@ -12,7 +12,7 @@ COPY . .
 
 RUN cargo build --release --target=armv7-unknown-linux-gnueabihf
 
-FROM arm32v7/debian:buster-slim
+FROM arm32v7/debian:bullseye-slim
 COPY --from=builder /usr/src/myapp/target/armv7-unknown-linux-gnueabihf/release/stats-manager /usr/local/bin/stats-manager
 EXPOSE 2784
 CMD ["stats-manager"]

@@ -1,5 +1,5 @@
 # Rustの公式イメージをベースにする。アーキテクチャを指定していないが、ビルドシステムが適切なイメージを選択する。
-FROM rust:1.58 as builder
+FROM rust:latest as builder
 
 # 作業ディレクトリを設定
 WORKDIR /usr/src/myapp
@@ -8,7 +8,7 @@ WORKDIR /usr/src/myapp
 COPY . .
 
 # リリースビルド
-RUN cargo build --package stats-manager
+RUN cargo build --release --package stats-manager
 
 # 実行ステージ
 FROM debian:buster-slim

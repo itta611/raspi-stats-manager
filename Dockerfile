@@ -8,7 +8,7 @@ WORKDIR /usr/src/myapp
 COPY . .
 
 # リリースビルド
-RUN cargo install --path . --package stats-manager
+RUN cargo build --package stats-manager
 
 # 実行ステージ
 FROM debian:buster-slim

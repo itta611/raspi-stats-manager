@@ -12,7 +12,7 @@ RUN cargo build --release --package stats-manager
 
 # 実行ステージ
 FROM debian:buster-slim
-COPY --from=builder /usr/local/cargo/bin/stats-manager /usr/local/bin/stats-manager
+COPY --from=builder /usr/src/myapp/target/release/stats-manager /usr/local/bin/stats-manager
 
 EXPOSE 2784
 CMD ["stats-manager"]

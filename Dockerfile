@@ -1,4 +1,4 @@
-FROM rust:1.68 as builder
+FROM rust:1.69 as builder
 
 RUN apt-get update && apt-get install -y \
   gcc-arm-linux-gnueabihf \

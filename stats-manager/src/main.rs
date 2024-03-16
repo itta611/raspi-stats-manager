@@ -40,9 +40,7 @@ async fn main() {
         .route("/getlist", get(get_list))
         .layer(Extension(stats_list));
 
-    let listener = tokio::net::TcpListener::bind("127.0.0.1:2784")
-        .await
-        .unwrap();
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:2784").await.unwrap();
     axum::serve(listener, app).await.unwrap();
 }
 

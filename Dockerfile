@@ -11,7 +11,12 @@ COPY . .
 
 RUN cargo build --release --target=armv7-unknown-linux-gnueabihf
 
-FROM arm32v7/ubuntu:20.04
+FROM arm32v7/ubuntu:20.04 as stats-manager
 COPY --from=builder /usr/src/myapp/target/armv7-unknown-linux-gnueabihf/release/stats-manager /usr/local/bin/
 EXPOSE 2784
 CMD ["stats-manager"]
+
+FROM arm32v7/ubuntu:20.04 as stats-reporter
+COPY --from=builder /usr/src/myapp/target/armv7-unknown-linux-gnueabihf/release/stats-reporter /usr/local/bin/
+EXPOSE 2784
+CMD ["stats-reporter"]

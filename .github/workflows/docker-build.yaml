@@ -31,4 +31,14 @@ jobs:
           context: .
           push: true
           tags: itta/stats-manager:latest
+          target: stats-manager
+          platforms: ${{ matrix.platform }}
+
+      - name: Build and push Docker image (stats-reporter)
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: myorg/stats-reporter:latest
+          target: stats-reporter
           platforms: ${{ matrix.platform }}

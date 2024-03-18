@@ -31,9 +31,9 @@ Master node IP address not provided.
 
     let master_ip: &str = &args[1];
     let master_port = "2784";
-    let hostname = match env::var("NODE_NAME") {
+    let host_name = match env::var("NODE_NAME") {
         Ok(val) => val,
-        Err(err) => hostname::get().unwrap().into_string().unwrap(),
+        Err(_) => hostname::get().unwrap().into_string().unwrap(),
     };
 
     time::sleep(Duration::from_secs(10)).await;
@@ -45,7 +45,7 @@ Master node IP address not provided.
 
         let url = format!("http://{}:{}/report", master_ip, master_port);
         let payload = Report {
-            host_name: hostname.into_string().unwrap(),
+            host_name: host_name.clone(),
             stats: &stats_controller.stats,
         };
         let result = client.post(url).json(&payload).send().await;

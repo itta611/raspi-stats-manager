@@ -6,7 +6,7 @@ use sysinfo::{CpuRefreshKind, RefreshKind, System};
 pub struct Stats {
     pub hostname: String,
     pub temperature: Option<i32>,
-    pub used_mem: Option<i32>,
+    pub used_mem: Option<f32>,
     pub total_mem: Option<i32>,
     pub cpu_usage: Option<i32>,
 }
@@ -50,8 +50,8 @@ fn get_temperature() -> Result<i32, io::Error> {
     Ok(temperature.round() as i32)
 }
 
-fn get_used_memory(system: &System) -> i32 {
-    (system.used_memory() as f32 / 1024_f32 / 1024_f32 / 1024_f32).round() as i32
+fn get_used_memory(system: &System) -> f32 {
+    (system.used_memory() as f32 / 1024_f32 / 1024_f32 / 1024_f32 * 10_f32).round() / 10_f32
 }
 
 fn get_total_memory(system: &System) -> i32 {

@@ -40,7 +40,6 @@ Master node IP address not provided.
 
     loop {
         interval.tick().await;
-
         stats_controller.update();
 
         let url = format!("http://{}:{}/report", master_ip, master_port);
@@ -58,16 +57,16 @@ Failed to connect to master node ({})
 ",
                 master_ip,
             );
-        }
-
-        let status_code = result.unwrap().status();
-        if status_code != StatusCode::ACCEPTED {
-            println!(
-                "
-Server responsed status {}
+        } else {
+            let status_code = result.unwrap().status();
+            if status_code != StatusCode::ACCEPTED {
+                println!(
+                    "
+Server responsed status: {}
 ",
-                status_code
-            );
+                    status_code
+                );
+            }
         }
     }
 }

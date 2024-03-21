@@ -2,7 +2,7 @@ use serde::Serialize;
 use std::{fs, io};
 use sysinfo::{CpuRefreshKind, RefreshKind, System};
 
-#[derive(Serialize)]
+#[derive(Serialize, Debug)]
 pub struct Stats {
     pub hostname: String,
     pub temperature: Option<i32>,

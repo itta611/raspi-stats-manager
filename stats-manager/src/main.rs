@@ -22,8 +22,8 @@ async fn report(
 
 async fn get_list(
     Extension(stats_list): Extension<Arc<Mutex<HashMap<String, Stats>>>>,
-) -> Json<UserLists> {
-    Json(UserLists {
+) -> Json<GetListRequest> {
+    Json(GetListRequest {
         data: stats_list.lock().unwrap().clone(),
     })
 }
@@ -45,7 +45,7 @@ async fn main() {
 }
 
 #[derive(Serialize)]
-struct UserLists {
+struct GetListRequest {
     data: HashMap<String, Stats>,
 }
 
@@ -57,7 +57,7 @@ struct ReportResult {
 #[derive(Clone, Deserialize, Serialize, Debug)]
 struct Stats {
     temperature: i32,
-    used_mem: i32,
+    used_mem: f32,
     total_mem: i32,
     cpu_usage: i32,
 }

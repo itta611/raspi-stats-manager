@@ -51,6 +51,10 @@ fn get_temperature() -> Result<i32, io::Error> {
 }
 
 fn get_used_memory(system: &System) -> f32 {
+    println!(
+        "{}",
+        (system.used_memory() as f32 / 1024_f32 / 1024_f32 / 1024_f32 * 10_f32).round() / 10_f32
+    );
     (system.used_memory() as f32 / 1024_f32 / 1024_f32 / 1024_f32 * 10_f32).round() / 10_f32
 }
 

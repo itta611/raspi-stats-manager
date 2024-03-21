@@ -50,14 +50,23 @@ Master node IP address not provided.
         };
         let result = client.post(url).json(&payload).send().await;
 
-        if result.is_err() || result.unwrap().status() != StatusCode::ACCEPTED {
+        if result.is_err() {
             println!(
                 "
-Failed to connect to master node ({}):
-Check host server is running correctly.
-
+Check host server is running correctly:
+Failed to connect to master node ({})
 ",
-                master_ip
+                master_ip,
+            );
+        }
+
+        let status_code = result.unwrap().status();
+        if status_code != StatusCode::ACCEPTED {
+            println!(
+                "
+Server responsed status {}
+",
+                status_code
             );
         }
     }

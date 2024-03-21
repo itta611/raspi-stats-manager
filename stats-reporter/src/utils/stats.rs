@@ -19,7 +19,7 @@ pub struct StatsController {
 impl StatsController {
     pub fn new() -> StatsController {
         let stats = Stats {
-            hostname: String::from("asdf"),
+            hostname: String::new(),
             temperature: None,
             used_mem: None,
             total_mem: None,

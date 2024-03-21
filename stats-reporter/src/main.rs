@@ -14,7 +14,6 @@ struct Report<'a> {
 
 #[tokio::main]
 async fn main() {
-    let mut interval = time::interval(Duration::from_secs(10));
     let mut stats_controller = StatsController::new();
     let client = reqwest::Client::new();
     let args: Vec<String> = env::args().collect();
@@ -37,6 +36,7 @@ Master node IP address not provided.
     };
 
     time::sleep(Duration::from_secs(10)).await;
+    let mut interval = time::interval(Duration::from_secs(10));
 
     loop {
         interval.tick().await;

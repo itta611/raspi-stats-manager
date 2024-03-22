@@ -29,7 +29,8 @@ Master node IP address not provided.
     }
 
     let master_ip: &str = &args[1];
-    let master_port: &str = args.get(2).expect("2874");
+    let default_port = String::from("2784");
+    let master_port: &str = args.get(2).unwrap_or(&default_port);
     let host_name = match env::var("NODE_NAME") {
         Ok(val) => val,
         Err(_) => hostname::get().unwrap().into_string().unwrap(),

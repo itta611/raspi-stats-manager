@@ -52,10 +52,11 @@ Master node IP address not provided.
         if result.is_err() {
             println!(
                 "
-Check host server is running correctly:
-Failed to connect to master node ({})
+Failed to connect to master node ({}):
+{}
 ",
                 master_ip,
+                result.unwrap_err()
             );
         } else {
             let status_code = result.unwrap().status();

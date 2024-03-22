@@ -59,7 +59,7 @@ Failed to connect to master node ({})
             );
         } else {
             let status_code = result.unwrap().status();
-            if status_code != StatusCode::ACCEPTED {
+            if status_code != StatusCode::OK {
                 println!(
                     "
 Server responsed status: {}
